@@ -1,23 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text } from "react-native";
-import { getPokemons } from "../api/getPokemons";
+import { getPokemonDetail, getPokemons } from "../api/getPokemons";
+import { PokemonList } from "../components/PokemonList";
 
 const Pokedex = () => {
+  const [pokemons, setPokemons] = useState([]);
+
   useEffect(() => {
     try {
       const loadPokemons = async () => {
         const response = await getPokemons();
-        console.log(response);
+        const pokemonsDetail = await Promise.all(
+          response.results.map((pokemon) => getPokemonDetail(pokemon.url))
+        );
+        setPokemons(pokemonsDetail);
       };
       loadPokemons();
     } catch (error) {
       console.error(error);
     }
   }, []);
-
+  console.log(pokemons);
   return (
     <SafeAreaView>
-      <Text>Pokedex</Text>
+      <PokemonList pokemons={pokemons} />
     </SafeAreaView>
   );
 };
