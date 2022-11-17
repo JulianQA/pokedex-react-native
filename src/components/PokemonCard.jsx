@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
   imagePokemon: {
     width: 90,
     height: 90,
-    borderWidth: 2,
   },
   pokemonOrder: {
     position: "absolute",
