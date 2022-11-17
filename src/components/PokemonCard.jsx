@@ -1,5 +1,6 @@
-import { View, Text, Pressable, Image, StyleSheet } from "react-native";
 import React from "react";
+import { View, Text, Pressable, Image, StyleSheet } from "react-native";
+import { getColorByType } from "../utils/colorPokemonsByType";
 
 const PokemonCard = ({ pokemon }) => {
   const handleChangeView = () => {
@@ -7,8 +8,15 @@ const PokemonCard = ({ pokemon }) => {
   };
 
   const typeString = pokemon.types.map((item) => item.type.name).join(", ");
+  const listOfTypes = typeString.split(", ");
+
+  const backgroundColor = {
+    backgroundColor: getColorByType(listOfTypes[0]),
+    ...styles.cardContainer,
+  };
+
   return (
-    <View style={styles.cardContainer}>
+    <View style={backgroundColor}>
       <Pressable onPress={handleChangeView}>
         <View>
           <Text style={styles.nameText}>{pokemon.name}</Text>
@@ -18,7 +26,9 @@ const PokemonCard = ({ pokemon }) => {
           />
           <Text style={styles.nameText}>{typeString}</Text>
           <View style={styles.pokemonOrder}>
-            <Text style={{ color: "#fff" }}>{pokemon.order}</Text>
+            <Text style={{ color: "#fff", fontWeight: "bold" }}>
+              {pokemon.order}
+            </Text>
           </View>
         </View>
       </Pressable>
@@ -28,15 +38,17 @@ const PokemonCard = ({ pokemon }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: 150,
+    width: 180,
     height: 150,
-    borderWidth: 2,
     margin: 10,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 15,
   },
   nameText: {
     textAlign: "center",
+    textTransform: "capitalize",
+    fontWeight: "bold",
   },
   imagePokemon: {
     width: 90,
@@ -47,11 +59,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -25,
     left: -25,
-    width: 30,
-    height: 30,
-    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: "#f71b1b",
   },
 });
 export { PokemonCard };

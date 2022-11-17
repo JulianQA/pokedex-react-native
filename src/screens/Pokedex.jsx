@@ -20,7 +20,6 @@ const Pokedex = () => {
       console.error(error);
     }
   }, []);
-  console.log(pokemons);
   return (
     <SafeAreaView>
       <PokemonList pokemons={pokemons} />
