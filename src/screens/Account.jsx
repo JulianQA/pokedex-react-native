@@ -5,8 +5,8 @@ import { LoginForm } from "../components/Account/LoginForm";
 import { UserData } from "../components/Account/UserData";
 
 const Account = () => {
-  const isAuth = useSelector((state) => state.auth);
-  return <View>{isAuth ? <UserData /> : <LoginForm />}</View>;
+  const { auth } = useSelector((state) => state.auth);
+  return <View>{auth ? <UserData /> : <LoginForm />}</View>;
 };
 
 export { Account };
