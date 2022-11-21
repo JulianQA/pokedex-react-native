@@ -3,8 +3,11 @@ import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { user, userData } from "../../utils/user";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/slices/authSlice";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -22,7 +25,7 @@ const LoginForm = () => {
       if (user.username !== data.username || user.password !== data.password) {
         setError(true);
       } else {
-        console.log(userData);
+        dispatch(login(userData));
       }
     },
   });
