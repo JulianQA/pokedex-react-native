@@ -3,6 +3,8 @@ import React from "react";
 import { Header } from "../components/Pokemon/Header";
 import { Types } from "../components/Pokemon/Types";
 import { Stats } from "../components/Pokemon/Stats";
+import { FavoriteButton } from "../components/Pokemon/FavoriteButton";
+import { useSelector } from "react-redux";
 
 const Pokemon = ({
   navigation,
@@ -10,6 +12,7 @@ const Pokemon = ({
     params: { pokemon },
   },
 }) => {
+  const { auth } = useSelector((state) => state.auth);
   return (
     <ScrollView>
       <Header
@@ -18,6 +21,7 @@ const Pokemon = ({
         image={pokemon.sprites.other["official-artwork"].front_default}
         type={pokemon.types[0].type.name}
       />
+      {auth && <FavoriteButton pokemon={pokemon} />}
       <Types types={pokemon.types} />
       <Stats stats={pokemon.stats} />
     </ScrollView>
