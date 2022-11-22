@@ -15,7 +15,7 @@ const Navigation = () => {
         name="Favorites"
         component={FavoritesNavigator}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Favoritos",
           tabBarIcon: ({ color, size }) => (
             <Icon name="heart" color={color} size={size} />
           ),

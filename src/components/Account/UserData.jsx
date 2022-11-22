@@ -1,11 +1,26 @@
-import React from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
+import { getFavoritesFromStorage } from "../../utils/asyncStorage";
 
 const UserData = () => {
+  const [total, setTotal] = useState(0);
   const { auth } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        try {
+          const response = await getFavoritesFromStorage();
+          setTotal(response.length);
+        } catch (error) {
+          setTotal(0);
+        }
+      })();
+    }, [])
+  );
   return (
     <View style={styles.mainContainer}>
       <Text>Bienvenido,</Text>
@@ -18,7 +33,7 @@ const UserData = () => {
           description={`${auth.firstName} ${auth.lastName}`}
         />
         <ItemContainer title={"User:"} description={auth.username} />
-        <ItemContainer title={"Favoritos:"} description={"0 Pokémons"} />
+        <ItemContainer title={"Favoritos:"} description={`${total} Pokémons`} />
       </View>
       <Pressable style={styles.button} onPress={() => dispatch(logout())}>
         <Text style={styles.textButton}>DESCONECTAR</Text>

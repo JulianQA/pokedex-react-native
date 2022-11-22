@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text } from "react-native";
 import { useSelector } from "react-redux";
+import { NeddToBeLogged } from "../components/NeddToBeLogged";
 import { PokemonList } from "../components/PokemonList";
 import { getFavoritesFromStorage } from "../utils/asyncStorage";
 
@@ -15,11 +16,7 @@ const Favorites = () => {
   }, [pokemons]);
   return (
     <SafeAreaView>
-      {auth ? (
-        <PokemonList pokemons={pokemons} />
-      ) : (
-        <Text>Necesitas hacer Log in</Text>
-      )}
+      {auth ? <PokemonList pokemons={pokemons} /> : <NeddToBeLogged />}
     </SafeAreaView>
   );
 };
