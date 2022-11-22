@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Account } from "../screens/Account";
-import { Favorites } from "../screens/Favorites";
 import pokeBallImg from "../assets/pokeball.png";
 import PokemonsNavigator from "./PokemonsNavigator";
+import { FavoritesNavigator } from "./FavoritesNavigator";
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
@@ -13,14 +13,13 @@ const Navigation = () => {
     <Tab.Navigator>
       <Tab.Screen
         name="Favorites"
-        component={Favorites}
+        component={FavoritesNavigator}
         options={{
-          tabBarLabel: "Favoritos",
+          tabBarLabel: "",
           tabBarIcon: ({ color, size }) => (
             <Icon name="heart" color={color} size={size} />
           ),
-          headerTitle: "Favoritos",
-          headerTitleAlign: "center",
+          headerShown: false,
         }}
       />
       <Tab.Screen

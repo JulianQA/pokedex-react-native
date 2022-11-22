@@ -21,6 +21,16 @@ export const getFavoritesFromStorage = async () => {
   }
 };
 
+export const deleteFavoritesFromStorage = async (pokemon) => {
+  try {
+    const response = await getFavoritesFromStorage();
+    const newArray = response.filter((item) => item.id !== pokemon.id);
+    await AsyncStorage.setItem("favorites", JSON.stringify(newArray));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const isInFavorite = async (pokemon) => {
   try {
     const list = await getFavoritesFromStorage();
