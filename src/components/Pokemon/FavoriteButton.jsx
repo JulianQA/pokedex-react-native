@@ -1,14 +1,27 @@
-import { View, Text } from "react-native";
+import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { addFavoriteToStorage, isInFavorite } from "../../utils/asyncStorage";
 
 const FavoriteButton = ({ pokemon }) => {
-  const handleAddToFavorite = () => console.log("Favoritos", pokemon.id);
+  const [favorite, setFavorite] = useState(false);
+  const handleAddToFavorite = async () => {
+    await addFavoriteToStorage(pokemon);
+    setFavorite(!favorite);
+  };
+  const handleRemoveFromFavorite = () => console.log("eliminar");
+  useEffect(() => {
+    (async () => {
+      const response = await isInFavorite(pokemon);
+      setFavorite(response);
+    })();
+  }, [pokemon]);
   return (
     <Icon
       name="heart"
       color={"white"}
       size={20}
-      onPress={handleAddToFavorite}
+      solid={favorite}
+      onPress={favorite ? handleRemoveFromFavorite : handleAddToFavorite}
       style={{ position: "absolute", right: 20, top: 260 }}
     />
   );
